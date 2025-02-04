@@ -18,6 +18,25 @@
     };
 
     jsPsych.run([just_one_trial]);
+
+    const dummy_trial = {
+type: jsPsychHtmlKeyboardResponse,
+stimulus: 'This text is example data we want to save.<br>Press any key
+to try to save it to OSF.'
+};
+const save_data_trial = {
+  type: jsPsychPipe,
+  action: "save",
+  experiment_id: "z8X83MZrgxA6", // REPLACE WITH YOUR ID!
+  filename: "test_data.csv",
+  data_string: ()=>jsPsych.data.get().csv(),
+  on_finish: function(data){alert(data.result.message)}
+};
+const end_trial = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: 'Nothing left to do here.'
+};
+  jsPsych.run([dummy_trial, save_data_trial, end_trial]);
   </script>
   
 </html>
